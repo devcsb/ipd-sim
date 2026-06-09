@@ -3,10 +3,12 @@ import './App.css'
 import { STAGES, stageById } from './game/stages'
 import type { ProgressMap } from './game/progress'
 import { loadProgress, saveProgress, recordStageResult } from './game/progress'
+import type { PlayAnalysis } from './game/analysis'
 import { TitleScreen } from './ui/TitleScreen'
 import { StageMap } from './ui/StageMap'
 import { GamePlay } from './ui/GamePlay'
 import { StageResult } from './ui/StageResult'
+import { EvolutionView } from './ui/EvolutionView'
 import { MuteToggle } from './ui/MuteToggle'
 
 type Screen =
@@ -21,7 +23,9 @@ type Screen =
       flips: number
       opponentScore: number
       welfare: number
+      analysis: PlayAnalysis
     }
+  | { name: 'evolution' }
 
 function App() {
   const [screen, setScreen] = useState<Screen>({ name: 'title' })
@@ -39,6 +43,9 @@ function App() {
         />
       )
     }
+    if (screen.name === 'evolution') {
+      return <EvolutionView onBack={() => setScreen({ name: 'map' })} />
+    }
     if (screen.name === 'play') {
       const stage = stageById(screen.stageId)!
       return (
@@ -46,7 +53,7 @@ function App() {
           key={stage.id}
           stage={stage}
           onQuit={() => setScreen({ name: 'map' })}
-          onComplete={({ stars, score, flips, opponentScore, welfare }) => {
+          onComplete={({ stars, score, flips, opponentScore, welfare, analysis }) => {
             const next = recordStageResult(progress, stage.id, stars, score)
             setProgress(next)
             saveProgress(next)
@@ -58,6 +65,7 @@ function App() {
               flips,
               opponentScore,
               welfare,
+              analysis,
             })
           }}
         />
@@ -67,6 +75,7 @@ function App() {
     const idx = stage.index
     const hasNext = idx + 1 < STAGES.length
     const canAdvance = hasNext && screen.stars >= 1
+    const isFinal = !hasNext && screen.stars >= 1
     return (
       <StageResult
         stage={stage}
@@ -75,10 +84,12 @@ function App() {
         flips={screen.flips}
         opponentScore={screen.opponentScore}
         welfare={screen.welfare}
-        isFinal={!hasNext && screen.stars >= 1}
+        analysis={screen.analysis}
+        isFinal={isFinal}
         onRetry={() => setScreen({ name: 'play', stageId: stage.id })}
         onMap={() => setScreen({ name: 'map' })}
         onNext={canAdvance ? () => setScreen({ name: 'play', stageId: STAGES[idx + 1].id }) : undefined}
+        onEvolution={isFinal ? () => setScreen({ name: 'evolution' }) : undefined}
       />
     )
   }
@@ -86,7 +97,9 @@ function App() {
   return (
     <>
       <MuteToggle />
-      {renderScreen()}
+      <div className="view" key={screen.name}>
+        {renderScreen()}
+      </div>
     </>
   )
 }

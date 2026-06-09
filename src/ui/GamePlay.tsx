@@ -18,6 +18,8 @@ import { ExchangeStage } from './ExchangeStage'
 import { FloatingPoints } from './FloatingPoints'
 import { WelfareHud } from './WelfareHud'
 import { GardenWorld } from './GardenWorld'
+import { analyze } from '../game/analysis'
+import type { PlayAnalysis } from '../game/analysis'
 
 const KIND_BY_OPPONENT: Record<StrategyId, AvatarKind> = {
   allc: 'sucker',
@@ -61,6 +63,7 @@ export function GamePlay({
     flips: number
     opponentScore: number
     welfare: number
+    analysis: PlayAnalysis
   }) => void
   onQuit: () => void
 }) {
@@ -109,6 +112,7 @@ export function GamePlay({
       flips,
       opponentScore: runner.opponentScore,
       welfare: world.totalWelfare,
+      analysis: analyze(history),
     })
   }
 

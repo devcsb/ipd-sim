@@ -177,6 +177,17 @@
 .ex-collapse .ex-orb-l { animation: orb-steal-right 0.4s ease forwards; }
 .ex-collapse .ex-orb-r { animation: orb-steal-left 0.4s ease forwards; }
 
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .float-points,
   .fx-shake,
@@ -191,7 +202,8 @@
   .cell-fresh .leaf,
   .ex-orb,
   .ex-share .ex-pool,
-  .ex-collapse .ex-pool {
+  .ex-collapse .ex-pool,
+  .view {
     animation: none !important;
   }
   .ex-orb { opacity: 1; }

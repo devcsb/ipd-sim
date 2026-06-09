@@ -2,6 +2,8 @@ import { useEffect } from 'react'
 import type { Stage } from '../game/stages'
 import { StarRow } from './StarRow'
 import { welfareOutcome, WELFARE_LABEL } from '../game/outcome'
+import type { PlayAnalysis } from '../game/analysis'
+import { STYLE_LABEL, STYLE_BLURB } from '../game/analysis'
 import { play as soundPlay } from '../audio/sound'
 
 export function StageResult({
@@ -10,21 +12,25 @@ export function StageResult({
   score,
   flips,
   welfare,
+  analysis,
   isFinal,
   onRetry,
   onMap,
   onNext,
+  onEvolution,
 }: {
   stage: Stage
   stars: number
   score: number
   flips: number
-  opponentScore: number // App 호환용 (현재 화면에서는 상대 비교를 쓰지 않음)
+  opponentScore: number // App 호환용 (상대 비교는 쓰지 않음)
   welfare: number
+  analysis: PlayAnalysis
   isFinal?: boolean
   onRetry: () => void
   onMap: () => void
   onNext?: () => void
+  onEvolution?: () => void
 }) {
   const cleared = stars >= 1
   const wo = welfareOutcome(welfare, stage.welfareGoal)
@@ -62,6 +68,15 @@ export function StageResult({
           <StarRow stars={stars} animate />
         </div>
 
+        {analysis.rounds > 0 && (
+          <div className="analysis">
+            <span className="analysis-style">
+              내 플레이: {STYLE_LABEL[analysis.style]} · 협력 {Math.round(analysis.coopRate * 100)}%
+            </span>
+            <span className="analysis-blurb">{STYLE_BLURB[analysis.style]}</span>
+          </div>
+        )}
+
         {stage.executionNoise > 0 && <p className="result-flips">통신 오류 {flips}회</p>}
         <p className="lesson">{stage.lesson}</p>
 
@@ -84,6 +99,11 @@ export function StageResult({
           {onNext && (
             <button className="btn primary" onClick={onNext}>
               다음
+            </button>
+          )}
+          {onEvolution && (
+            <button className="btn primary" onClick={onEvolution}>
+              진화 토너먼트 보기
             </button>
           )}
         </div>
