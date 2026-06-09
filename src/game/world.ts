@@ -1,6 +1,6 @@
 import type { GameRoundResult } from '../sim/gameRunner'
 
-/** 한 라운드 최대 사회후생 = 2R (상호협력). IPD 제약 2R>T+S 가 협력 파이 > 배신 파이를 보장. */
+/** 한 라운드 최대 사회후생 = 2R (상호협력). IPD 제약 2R>T+S 가 협력 수확 > 배신 수확을 보장. */
 export const MAX_WELFARE_PER_ROUND = 6
 
 export type CellState = 'bloom' | 'sprout' | 'barren'
@@ -13,17 +13,17 @@ export function roundWelfare(r: GameRoundResult): number {
 export function cellState(r: GameRoundResult): CellState {
   const w = roundWelfare(r)
   if (w >= 6) return 'bloom' // 상호협력: 만개
-  if (w >= 5) return 'sprout' // 일방배신: 파이가 깎인 시든 싹
+  if (w >= 5) return 'sprout' // 일방배신: 수확이 깎인 시든 싹
   return 'barren' // 상호배신: 황무지
 }
 
 export interface WorldState {
   cells: CellState[]
-  totalWelfare: number // 누적 사회후생
+  totalWelfare: number // 누적 공동 수확
   potentialWelfare: number // 모두 협력했다면 가능했던 누적 (라운드수 × 6)
-  lostWelfare: number // 배신으로 사라진 파이
+  lostWelfare: number // 배신으로 사라진 수확
   bloomRatio: number // 0..1, 만개 셀 비율
-  lastDelta: number | null // 직전 라운드가 더한 가치
+  lastDelta: number | null // 직전 라운드가 더한 수확
 }
 
 export function worldFromHistory(history: readonly GameRoundResult[]): WorldState {

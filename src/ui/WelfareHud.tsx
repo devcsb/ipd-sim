@@ -22,7 +22,7 @@ export function WelfareHud({
   return (
     <div className="welfare">
       <div className="welfare-top">
-        <span className="welfare-label">우리가 함께 키운 파이</span>
+        <span className="welfare-label">공동 수확</span>
         <span className="welfare-total" aria-live="polite">
           {shown}
           {goal !== null && <span className="welfare-goal"> / {goal}</span>}
@@ -34,12 +34,12 @@ export function WelfareHud({
           <div className={`welfare-fill${reached ? ' reached' : ''}`} style={{ width: `${pct}%` }} />
         </div>
       ) : (
-        <div className="welfare-note">이 상대와는 파이를 못 키워요. 방어가 최선!</div>
+        <div className="welfare-note">이 상대와는 함께 거둘 게 없어요. 방어가 최선!</div>
       )}
 
       <div className="welfare-sub">
         <span>내 점수 {me}</span>
-        {lost > 0 && <span className="welfare-lost">잃은 파이 {lost}</span>}
+        {lost > 0 && <span className="welfare-lost">잃은 수확 {lost}</span>}
         <span>
           {oppName} {opp}
         </span>

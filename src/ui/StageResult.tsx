@@ -50,11 +50,11 @@ export function StageResult({
 
         {wo !== null ? (
           <div className={`outcome-badge welfare-${wo}`}>
-            {WELFARE_LABEL[wo]} · 함께 키운 파이 {welfare} / {stage.welfareGoal}
+            {WELFARE_LABEL[wo]} · 공동 수확 {welfare} / {stage.welfareGoal}
           </div>
         ) : (
           <div className="outcome-badge welfare-defense">
-            방어 점수 {score} (이 상대와는 파이를 못 키워요)
+            방어 점수 {score} (이 상대와는 함께 거둘 게 없어요)
           </div>
         )}
 
@@ -67,9 +67,9 @@ export function StageResult({
 
         {isFinal && (
           <p className="ending">
-            다섯 상대를 모두 만났어요. 호구는 이용당하고 악당과는 파이를 못 키웠죠. 거울에겐
-            협력이 남는 장사였고요. 통신 오류가 끼자 용서 없는 복수귀와는 파이가 무너졌지만,
-            관대한 상대는 실수를 용서하며 함께 파이를 되살렸어요. 협력이 세상 전체의 파이를
+            다섯 상대를 모두 만났어요. 호구는 이용당하고 악당과는 함께 거둘 게 없었죠. 거울에겐
+            협력이 남는 장사였고요. 통신 오류가 끼자 용서 없는 복수귀와는 수확이 무너졌지만,
+            관대한 상대는 실수를 용서하며 함께 수확을 되살렸어요. 협력이 세상 전체의 수확을
             가장 크게 키운다 — 이게 너그러운 맞대응의 힘이에요.
           </p>
         )}

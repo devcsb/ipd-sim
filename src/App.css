@@ -503,7 +503,7 @@
   font-size: 16px;
 }
 
-/* --- 공동 파이 HUD --- */
+/* --- 공동 수확 HUD --- */
 .welfare {
   display: flex;
   flex-direction: column;
@@ -634,7 +634,7 @@
   border-left: 3px solid var(--defect);
 }
 
-/* --- 결과 배지 (파이 목표) --- */
+/* --- 결과 배지 (수확 목표) --- */
 .welfare-achieved {
   background: rgba(52, 211, 153, 0.18);
   color: var(--coop);
