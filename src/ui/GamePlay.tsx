@@ -27,9 +27,9 @@ const KIND_BY_OPPONENT: Record<StrategyId, AvatarKind> = {
   tft: 'mirror',
   grudger: 'grudger',
   gtft: 'generous',
-  random: 'mirror',
+  random: 'coin',
   tf2t: 'generous',
-  pavlov: 'mirror',
+  pavlov: 'fickle',
 }
 
 function randomSeed(): number {
@@ -137,6 +137,8 @@ export function GamePlay({
           </span>
         )}
       </div>
+
+      {!last && <p className="intro-banner">{stage.intro}</p>}
 
       {last && (
         <div key={last.round}>

@@ -779,3 +779,79 @@
   color: var(--text);
   line-height: 1.5;
 }
+
+/* --- 규칙 모달 / 온보딩 --- */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 16px;
+  animation: view-in 0.2s ease;
+}
+
+.modal {
+  max-width: 440px;
+  width: 100%;
+}
+
+.modal h2 {
+  margin: 0 0 12px;
+}
+
+.rules-intro {
+  font-size: 14px;
+  color: var(--text);
+  margin: 0 0 12px;
+}
+
+.payoff-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 12px 0;
+  font-size: 13px;
+}
+
+.payoff-table th,
+.payoff-table td {
+  border: 1px solid var(--border);
+  padding: 8px;
+  text-align: center;
+}
+
+.payoff-table th {
+  color: var(--text);
+  background: var(--bg);
+}
+
+.payoff-table td {
+  color: var(--text-h);
+}
+
+.rules-key {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.rules-key strong {
+  color: var(--coop);
+}
+
+.title-card .actions {
+  justify-content: center;
+}
+
+.intro-banner {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}

@@ -1,6 +1,6 @@
 import type { Mood } from '../game/mood'
 
-export type AvatarKind = 'sucker' | 'villain' | 'mirror' | 'grudger' | 'generous'
+export type AvatarKind = 'sucker' | 'villain' | 'mirror' | 'grudger' | 'generous' | 'fickle' | 'coin'
 
 const FACE: Record<AvatarKind, { fill: string; accent: string }> = {
   sucker: { fill: '#fde68a', accent: '#f59e0b' },
@@ -8,6 +8,8 @@ const FACE: Record<AvatarKind, { fill: string; accent: string }> = {
   mirror: { fill: '#93c5fd', accent: '#3b82f6' },
   grudger: { fill: '#fca5a5', accent: '#dc2626' },
   generous: { fill: '#a7f3d0', accent: '#10b981' },
+  fickle: { fill: '#fcd34d', accent: '#d97706' },
+  coin: { fill: '#cbd5e1', accent: '#64748b' },
 }
 
 const MOUTH: Record<Mood, string> = {
@@ -59,6 +61,19 @@ function KindMark({ kind, accent }: { kind: AvatarKind; accent: string }) {
       return <circle cx="50" cy="14" r="6" fill="none" stroke={accent} strokeWidth="3" />
     case 'sucker':
       return <path d="M50 6 Q44 14 50 20 Q56 14 50 6" fill={accent} />
+    case 'fickle':
+      // 순환 화살표 느낌
+      return (
+        <path
+          d="M44 10 A8 8 0 1 1 40 16 M40 16 L36 13 M40 16 L43 12"
+          fill="none"
+          stroke={accent}
+          strokeWidth="3"
+          strokeLinecap="round"
+        />
+      )
+    case 'coin':
+      return <circle cx="50" cy="12" r="5" fill="none" stroke={accent} strokeWidth="3" />
   }
 }
 
